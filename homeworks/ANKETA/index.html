@@ -4,9 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anketa</title>
 </head>
 <body>
-    <h1>ANKETA</h1>
+    <script>
+        let user_fio = "";
+        function fio(question) {
+          let text=prompt(question);
+          if (!text || isFinite(parseInt(text))){
+            fio(question);
+          } else{
+                user_fio+= text+" ";
+          }
+        }
+        let age;
+        let ageADay;
+        let age5Years;
+        function enter_age() {
+                age = parseInt(prompt('Введите ваш возраст в годах...'));
+        if (isFinite(age)){
+                ageADay = age*365;
+                age5Years = age+5;
+        } else {
+                enter_age();
+        }
+        }
+        let isMan;
+        let isGender;
+        let pens;
+        let res_pens;
+    function gender() {
+        isMan = confirm('Ваш пол - мужской?');
+        isMan? isGender='Мужской':isGender='Женский';
+        isMan?pens=63:pens=58;
+      if(pens==63&&age>=pens || pens==58&&age>=pens) {
+        res_pens="да";
+      } else{
+        res_pens="нет"
+      }
+    }
+    fio("Введите вашу фамилию: ");
+    fio("Введите вашу имя: ");
+    fio("Введите вашу отчество: ");
+    enter_age();
+    gender();
+        alert(`
+        Ваше ФИО: ${user_fio}
+        Ваш возраст в годах: ${age}
+        Ваш возраст в днях: ${ageADay}
+        через 5 лет вам будет: ${age5Years}
+        Ваш пол: ${isGender}
+        Вы на пенсии: ${res_pens}.`);
+        </script>
 </body>
 </html>
