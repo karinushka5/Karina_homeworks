@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc</title>
+    <style>
+        input {
+            padding: 30px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" name="" value="1" onclick="getNumber(1)">
+    <input type="button" name="" value="2" onclick="getNumber(2)">
+    <input type="button" name="" value="3" onclick="getNumber(3)">
+    <br>
+    <input type="button" name="" value="4" onclick="getNumber(4)">
+    <input type="button" name="" value="5" onclick="getNumber(5)">
+    <input type="button" name="" value="6" onclick="getNumber(6)">
+    <br>
+    <input type="button" name="" value="7" onclick="getNumber(7)">
+    <input type="button" name="" value="8" onclick="getNumber(8)">
+    <input type="button" name="" value="9" onclick="getNumber(9)">
+    <br>
+    <input type="button" name="" value="0" onclick="getNumber(0)">
+    <input type="button" name="" value="+" onclick="getSign('+')">
+    <input type="button" name="" value="-" onclick="getSign('-')">
+    <input type="button" name="" value="*" onclick="getSign('*')">
+    <input type="button" name="" value="/" onclick="getSign('/')">
+    <input type="button" name="" value="=" onclick="getresult(x,y,sign)">
+
+    <script>
+        var x = null;
+        var y = null;
+        function getNumber(num) {
+            if (x===null) {
+                x = num;
+            } else {
+                y = num;
+            }
+
+        }
+        var sign = null;
+        function getSign(znak) {
+            sign = znak;
+
+        }
+        
+        function getresult(x,y,sign) {
+            var res = null;
+            switch(sign) {
+                case '+':
+                res = x + y;
+                console.log(`${x} + ${y} = ${res}`);
+                break;
+
+                case '-':
+                res= x - y;
+                console.log(`${x} - ${y} = ${res}`);
+                break;
+
+                case '*':
+                res = x * y;
+                console.log(`${x} * ${y} = ${res}`);
+                break;
+
+                case '/':
+                res = x / y;
+                console.log(`${x} / ${y} = ${res}`);
+                break;
+        }
+    }
+    </script>
+</body>
+</html>
