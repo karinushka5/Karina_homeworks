@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3+</title>
+</head>
+<!-- "A3+
+При проверке должны игнорироваться:
+ - регистр букв;
+ - пробелы;
+ - знаки препинания;
+ - мягкие и твёрдые знаки;
+ - разница между буквами ""е"" и ""ё""." -->
+<body>
+    <script>
+        let phrase = String(prompt('Введите фразу...'));
+        // 1.убирает пробелы и знаки препинания. 2-2: замена символов.
+        phrase = phrase.toLowerCase().replace(/[^a-zа-яё]/gi, '').replace(/ё/g,"е").replace(/ъ/g,"ь"); 
+        function isPalindrome(str) {
+        const lastIndex = str.length - 1;
+        for (let i = 0; i < str.length / 2; i++) {
+            if (str[i] !== str[lastIndex - i]) {
+                return console.log("Это не палиндром!");
+            }
+        }
+        return console.log('Это палиндром');
+        }
+    isPalindrome(phrase);
+    </script>
+</body>
+</html>
