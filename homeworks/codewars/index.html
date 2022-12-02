@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOWELS</title>
+</head>
+<body>
+    <input type='button' value='Поиск' onclick='getStr()'>
+    <script>
+//     let getStr = () => console.log(`Количество гласных: ${getVowels(prompt("Введите строку"))}`)
+
+//     let getVowels = str => {
+//     const vowels = 'аеёиоуыэюя';
+//     str = str.toLowerCase().split('');
+//     let result = str.reduce((sum, cur) => {
+//         if(vowels.includes(cur))  return sum += 1
+//         else  return sum
+//     }, 0);
+//     return result
+
+// }
+// function disemvowel(str) {
+//    const vowels = ['a', 'o','u', 'e', 'i', 'A', 'O','U', 'E', 'I']
+//    let newstr = '';
+//   for (let i = 0; i<str.length; i++) {
+//       if(!vowels.includes(str[i])) {newstr += str[i]}
+//   }
+//   return newstr;
+// }
+// Не работает ниже код, нельзя выйти из цикла
+// function disemvowel(str) {
+//     let strA = str.split('');
+//    const vowels = ['a', 'o','u', 'e', 'i', 'A', 'O','U', 'E', 'I']
+//    let newstr = '';
+//    for (let i = 0; i<str.length; i++){
+//     for (let j = 0; j<vowels.length; j++){
+//     if(strA[i] !== vowels[j]) {
+//         newstr += strA[i] 
+//         break}
+//     // else {newstr +=''}
+//   }
+//   return newstr
+// }
+// }
+function calc(x){
+    let str = '';
+    let total1=0;
+    let total2=0;
+    for (let i = 0; i<x.length; i++) {
+        str += x.charCodeAt(i);
+    }
+    let arr = str.split('');
+    arr = arr.reduce((total1,x) => total1+x)
+    console.log(total1)
+    for (let i =0; i<arr.length; i++) {
+        if (arr[i]==7) arr[i] = '1';
+    }
+    return console.log(str, arr)
+}
+calc('ABC');
+
+    </script>
+</body>
+</html>
