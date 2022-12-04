@@ -44,23 +44,31 @@
 //   return newstr
 // }
 // }
-function calc(x){
-    let str = '';
-    let total1=0;
-    let total2=0;
-    for (let i = 0; i<x.length; i++) {
-        str += x.charCodeAt(i);
-    }
-    let arr = str.split('');
-    arr = arr.reduce((total1,x) => total1+x)
-    console.log(total1)
-    for (let i =0; i<arr.length; i++) {
-        if (arr[i]==7) arr[i] = '1';
-    }
-    return console.log(str, arr)
+function calc(x){ 
+        let total1 = '';
+        let arr = x.split("") 
+        for(let i=0;i<arr.length;i++){ 
+            total1 += (arr[i].charCodeAt(0)) } 
+        let total2 = total1.replace(/7/g,1) 
+        total1 = total1.split("").map(Number) 
+        total2 = total2.split("").map(Number) 
+        return total1.reduce((a,b)=> a+b)-total2.reduce((a,b)=>a+b)
 }
 calc('ABC');
 
+function catMouse(map,moves){
+  map=map.split('\n');
+  if (!map.some(v=>v.includes('C'))||!map.some(v=>v.includes('m'))) return 'boring without two animals';
+  let catX=map.map(v=>v.indexOf('C')).filter(v=>v>-1)*1;
+  let catY=map.map(v=>v.includes('C')).indexOf(true)+1;
+  let mX=map.map(v=>v.indexOf('m')).filter(v=>v>-1)*1;
+  let mY=map.map(v=>v.includes('m')).indexOf(true)+1;
+  return Math.abs(catX-mX)+Math.abs(catY-mY)<=moves?'Caught!':'Escaped!';
+}
+var map=`..C......
+.........
+....m....`
+catMouse(map,5)
     </script>
 </body>
 </html>
