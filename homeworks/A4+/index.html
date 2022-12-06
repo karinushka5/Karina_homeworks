@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4+</title>
+</head>
+<body>
+    <script>
+        // "A4+
+// Внимание: не надо строку очищать от игнорируемых символов с помощью рекурсии; рекурсию нужно применять только при проверке, является ли очищенная строка палиндромом."
+                 
+        const isPalindrome = str => {
+            const first = str[0];
+            const last = str[str.length - 1];
+            if (str.length <= 1) return true;
+            if (first !== last) return false;
+            const newStr= str.substr(1, str.length - 2);
+            return isPalindrome(newStr);
+        };
+
+        const ansPalindrome = () => {
+            let str = prompt('Введите фразу...');
+            str = str.toLowerCase().replace(/[^a-zа-яё]/gi, '').replace(/ё/g,"е").replace(/ъ/g,"ь");
+            if(isPalindrome(str)) {alert('Это палиндром')}
+            else {alert('Это не палиндром!')}
+    }
+        ansPalindrome();
+
+    </script>
+</body>
+</html>

@@ -15,19 +15,25 @@
  - разница между буквами ""е"" и ""ё""." -->
 <body>
     <script>
-        let phrase = String(prompt('Введите фразу...'));
+        
+        let phrase = prompt('Введите фразу...');
         // 1.убирает пробелы и знаки препинания. 2-2: замена символов.
         phrase = phrase.toLowerCase().replace(/[^a-zа-яё]/gi, '').replace(/ё/g,"е").replace(/ъ/g,"ь"); 
         function isPalindrome(str) {
         const lastIndex = str.length - 1;
         for (let i = 0; i < str.length / 2; i++) {
             if (str[i] !== str[lastIndex - i]) {
-                return console.log("Это не палиндром!");
+                return false;
             }
         }
-        return console.log('Это палиндром');
+        return true;
         }
-    isPalindrome(phrase);
+        function ansPalindrome() {
+        if(isPalindrome(phrase)) {alert('Это палиндром')}
+        else {alert('Это не палиндром!')}
+  }
+  ansPalindrome();
     </script>
+   
 </body>
 </html>
