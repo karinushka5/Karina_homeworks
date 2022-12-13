@@ -6,54 +6,75 @@
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
+        body {padding: 5px;}
          #app {
             padding: 20px;
-            display: grid;
-            grid-auto-rows: min-content;
-            grid-auto-columns: min-content;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
          }
          #app div {
-            margin: 20px;
+            margin: 10px;
+         }
+         .btn-main {
+          display: flex;
+          justify-content: center;
+         }
+         input {
+        padding: 10px 20px 8px;
+        border-radius: 10px;
+        border: 1px;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+        background-color: #91e3ee;
+        margin: 5px;
+
          }
 
     </style>
   </head>
   <body>
+    <div class="btn-main">
     <input type='button' value='Render' onclick='getDiv()'>
-    <div id = 'app'></div>
+    <input type='button' value='&#129045;' onclick='sortIncrease()'>
+    <input type='button' value='&#129047;' onclick='sortDecrease()'>
+    </div>
     
-
-
+    <div id = 'app'></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
         const cars = [
             {id:'1',
             brandTitle: 'BMW',
             modelTitle: 'M5',
-            imgURL: "https://www.drivespark.com/images/2020-06/2021-bmw-m5-competition-exterior-5.jpg",
-            discrip: 'the best car'
+            imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJJNlJZqJHrakxLlATPfxY2j1JsXDg6T9TaA&usqp=CAU",
+            discrip: 'the best car',
+            price: '≈ 195000 $ '
         },
         {   id:'2',
             brandTitle: 'Audi',
             modelTitle: 'Q5',
-            imgURL: "https://s.auto.drom.ru/i24246/c/photos/fullsize/audi/q5/audi_q5_959970.jpg",
-            discrip: 'the best car'
+            imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GetuFWE8pbI5oxX25Y-getRULbnT9Kh4uQ&usqp=CAU",
+            discrip: 'the best car',
+            price: '≈ 66000 $'
         },
         {   id:'3',
             brandTitle: 'Mazda',
             modelTitle: 'CX5',
-            imgURL: "https://s.auto.drom.ru/i24208/c/photos/fullsize/mazda/cx-5/gen473_mazda_cx-5_708027.jpg",
-            discrip: 'the best car'
+            imgURL: "https://editorials.autotrader.ca/media/193626/2021-mazda-cx-5-100th-anniversary-edition-02-di.jpg?anchor=center&mode=crop&width=1920&height=1080&rnd=132600028584630000",
+            discrip: 'the best car',
+            price: '≈ 48500 $'
         }]
         const elem = document.getElementById('app');
-       
         let getDiv = () => {
             let str= ''
             for (let car of cars) {
                 str += `<div class="card" style="width: 18rem;">
                 <img src="${car.imgURL}" class="card-img-top" alt="...">
                 <div class="card-body">
-                <h5 class="card-title">${car.brandTitle}</h5>
+                <h5 class="card-title">${car.brandTitle} ${car.modelTitle}</h5>
+                <h6 class="card-price">${car.price}</h6>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
@@ -61,7 +82,18 @@
                 }
                 elem.innerHTML=str;
             }
-        
+            
+        let sortIncrease = () => {
+          cars.sort((a, b) =>{return parseInt(a.price.slice(2,-2))-parseInt(b.price.slice(2,-2));})
+          console.log(cars);
+          getDiv(cars);
+
+        }
+        let sortDecrease = () => {
+          cars.sort((a, b) =>{return parseInt(b.price.slice(2,-2))-parseInt(a.price.slice(2,-2));})
+          console.log(cars);
+          getDiv(cars);
+        }
 
     </script>
   </body>
