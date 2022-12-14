@@ -1,0 +1,87 @@
+Получение словоформы для числа по кнопке
+------------------------------------------
+<input type=button value='Жми!' onclick='test()'>
+<script>
+    function getNumWord(num,word1,word2,word5) {
+        const dd=num%100;
+        if ( (dd>=11) && (dd<=19) )
+            return word5;
+        const d=num%10;
+        if ( d==1 )
+            return word1;
+        if ( (d>=2) && (d<=4) )
+            return word2;
+        return word5;
+    }
+    function test() {
+        const applesS=prompt('Сколько у вас яблок?');
+        const apples=parseInt(applesS);
+        alert( 'У вас ' + apples + ' ' + getNumWord(apples,'яблоко','яблока','яблок') + '!' );
+    }
+</script>
+------------------------------------------
+Хэш как память (как запомнить что что-то уже случалось)
+------------------------------------------
+<script>
+
+    const values=[55,77,55,66,77];
+    let used={}; // ключ хэша - число, которое уже встречалось
+    for ( let i=0; i<values.length; i++ ) {
+        const value=values[i]; // очередное значение
+        if ( value in used ) // встречалось ли оно?
+            continue; // если да - всё, берём следующее
+        used[value]=true; // если нет - запоминаем, что это значение уже встречалось
+        console.log(value); // выводим его в консоль
+    }
+</script>
+------------------------------------------
+MATH!
+// округление до произвольного модуля
+function roundMod(n,m) {
+    return Math.round(n/m)*m;
+}
+
+// получение целого случайного числа в заданном диапазоне
+function randomDiap(n,m) {
+    return Math.floor(Math.random()*(m-n+1))+n;
+}
+------------------------------------------
+Русскоязычное форматирование даты и времени (функция)
+!!! ЛУЧШЕ ИСПОЛЬЗОВАТЬ MOMENTJS
+------------------------------------------
+<script>
+
+    // форматирует переданную дату-время в формате дд.мм.гггг чч:мм:сс
+    function formatDateTime(dt) {
+        const year=dt.getFullYear();
+        const month=dt.getMonth()+1;
+        const day=dt.getDate();
+        const hours=dt.getHours();
+        const minutes=dt.getMinutes();
+        const seconds=dt.getSeconds();
+        return str0l(day,2) + '.' + str0l(month,2) + '.' + year
+            + ' ' + str0l(hours,2) + ':' + str0l(minutes,2) + ':' + str0l(seconds,2);
+    }
+
+    // дополняет строку Val слева нулями до длины Len
+    function str0l(val,len) {
+        let strVal=val.toString();
+        while ( strVal.length < len )
+            strVal='0'+strVal;
+        return strVal;
+    }
+
+    const currTime=new Date();
+    console.log( formatDateTime(currTime) );
+
+</script>
+------------------------------------------
+Функция для получения реального имени класса объекта
+------------------------------------------
+function getClassName(obj) {
+    if ( obj.constructor && obj.constructor.name )
+        return obj.constructor.name;
+    const c=Object.prototype.toString.apply(obj);
+    return c.substring(8,c.length-1);
+}
+------------------------------------------
