@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N.13</title>
+    <title>N.14</title>
     <style>
         .app {
             display: flex;
@@ -33,7 +32,7 @@
             left: 5px;
             width: 100%;
             height: 100%;
-            background: #32D4E2;
+            background: deeppink;
             z-index: -1;
             transition: .25s ease;
             transform: translate(0, 0);
@@ -43,7 +42,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="app">
         <button class='btn' onclick="enterInfo()">ввод информации о напитке</button>
@@ -52,33 +50,36 @@
         <button class='btn' onclick="getList()">перечень всех напитков</button>
     </div>
     <script>
-        function HashStorageFunc() {
-            const _store = {};
-            this.addValue = function (key, value) {
-                _store[key] = value;
+
+        class HashStorageClass {
+            constructor() {
+                this._store = {};
             }
-            this.getValue = function (key) {
-                if (key in _store) {
-                    return _store[key];
+            addValue(key, value) {
+                this._store[key] = value;
+            }
+            getValue(key) {
+                if (key in this._store) {
+                    return this._store[key];
                 } else {
                     return undefined;
                 }
             }
-            this.deleteValue = function (key) {
-                if (key in _store) {
-                    delete _store[key];
+            deleteValue(key) {
+                if (key in this._store) {
+                    delete this._store[key];
                     return true;
                 } else {
                     return false;
                 }
             }
-            this.getKeys = function () {
-                return Object.keys(_store);
+            getKeys() {
+                return Object.keys(this._store);
             }
         }
 
-        const drinkStorage = new HashStorageFunc();
-        function enterInfo() {
+        const drinkStorage = new HashStorageClass();
+        let enterInfo = () => {
             const drinkName = prompt('Введите название напитка');
             const isAlcohol = (confirm('Напиток алкогольный?') ? 'да' : 'нет');
             const drinkRecipe = prompt('Введите рецепт приготовления напитка');
@@ -86,7 +87,7 @@
             return drinkStorage.addValue(drinkName, { isAlcohol, drinkRecipe });
         }
 
-        function getInfo() {
+        let getInfo = () => {
             const drinkName = prompt('Введите название напитка');
             const data = drinkStorage.getValue(drinkName);
             if (data) {
@@ -97,17 +98,16 @@
             } else {alert(`Напиток ${drinkName} отсутствует в хранилище!`);}
         }
 
-        function deleteInfo() {
+        let deleteInfo = () => {
             const drinkName = prompt('Введите название напитка');
             if (drinkStorage.deleteValue(drinkName)) {
                 alert(`Напиток ${drinkName} удален из хранилища`);
             } else { alert(`Напиток ${drinkName} отсутствует в хранилище!`); }
         }
 
-        function getList() {
+        let getList = () => {
             alert(`Перечень всех напитков: ${drinkStorage.getKeys()}`);
         }
     </script>
 </body>
-
 </html>
