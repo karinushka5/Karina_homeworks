@@ -12,15 +12,13 @@
         #area {
             width: 300px;
             height: 300px;
-            background: purple;
+            background: rgb(255, 36, 255);
             position: relative;
-            /* top: 0;
-            left: 0; */
         }
         #square {
             width: 50px;
             height: 50px;
-            background: rgb(61, 129, 231);
+            background: rgb(61, 211, 231);
             position: absolute;
             top: 0;
             left: 0;
@@ -29,7 +27,7 @@
     </style>
 </head>
 <body>
-    <div id="area">
+    <div id="area" >
         <div id="square"></div>
     </div>
     <script>
@@ -38,14 +36,22 @@
             let y = 0;
             let x = 0;
             const elem = document.getElementById('square');
+            const parent = document.getElementById('area');
             console.log(x,y)
             window.addEventListener("keydown", (e) => {
      
                 switch(e.key){
-                    case 'w': y -=3; elem.style.top= (y+'px'); break;
-                    case 's': y +=+3;elem.style.top= (y+'px'); break;
-                    case 'd': x +=3; elem.style.left= (x+'px'); break;
-                    case 'a': x -=3; elem.style.left= (x+'px'); break;
+                    case 'w': 
+                        if (y>=9) {y -=10; elem.style.top= (y+'px');} break;
+                    case 's': 
+                        if (y <= 240) {y += 10; elem.style.top= (y+'px');} 
+                        break;
+                    case 'd': 
+                        if (x<=240) {x += 10; elem.style.left= (x+'px');} 
+                        break;
+                    case 'a': 
+                        if (x >= 9) {x -=10; elem.style.left= (x+'px');} 
+                        break;
                 }
             })
     </script>
