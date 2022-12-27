@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.17</title>
+</head>
+<body>
+   
+    <script>
+        let vowels = 'аеёиоуыэюя';
+        let getStr = () => {
+            let str = prompt("Введите строку").toLowerCase();
+            return alert(`
+            Количество гласных c использованием forEach - ${getVowelsFE(str)}.
+            Количество гласных c использованием filter - ${getVowelsFilter(str)}.
+            Количество гласных c использованием reduce - ${getVowelsR(str)}.`)
+        }
+        let getVowelsFE = (str) => {
+            let count = 0;
+            [...str].forEach((el) => {if (vowels.includes(el)) count++});
+            return count;
+        }
+        let getVowelsFilter = (str) => {
+            let count = [...str].filter((el) => vowels.includes(el)).length;
+            return count;
+        }
+        let getVowelsR = (str) => {
+            let count = [...str].reduce((acc, el) => vowels.includes(el)? acc+=1: acc,0);
+            return count;
+        }
+        getStr();
+
+    </script>
+</body>
+</html>
