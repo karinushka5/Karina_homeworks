@@ -73,7 +73,7 @@
     <input type="button" onclick="addAuto();checkForm(form)" value="Добавить авто" id="btn">
     <input type="reset" name="Сбросить">
   </form>
-  <div id='app'></div>
+  <!-- <div id='app'></div> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
@@ -111,7 +111,7 @@
       let imgURL = document.form.imgURL.value;
       let discrip = document.form.discrip.value;
       cars.push({id,brandTitle, modelTitle, price, imgURL, discrip })
-      // console.log(cars)
+      console.log(cars)
     }
     let checkForm = (form) =>{
       for (var i = 0; i < form.elements.length-2; i++)
@@ -120,7 +120,7 @@
         return false;
     }}    
 
-    const elem = document.getElementById('app');
+    // const elem = document.getElementById('app');
     let getDiv = () => {
       let str = ''
       for (let car of cars) {
@@ -134,7 +134,12 @@
             </div>
             </div>`
       }
-      elem.innerHTML = str;
+      // elem.innerHTML = str;
+      let divMain = document.createElement('div');
+      divMain.setAttribute('id', 'app');
+      divMain.innerHTML = str;
+      document.body.appendChild(divMain);
+
     }
     let sortIncrease = () => {
       cars.sort((a, b) => { return parseInt(a.price) - parseInt(b.price); })
@@ -152,7 +157,25 @@
       form.classList.remove('hidden');
       document.querySelector('#getForm').classList.remove('active');
     }
+    // корзина
+    for(let i = 0; i<cars.length; i++){
+            createEl(cars[i]);
+        }
 
+        function handleClick(e){
+            console.log(e.target.dataset.id)
+        }
+        function createEl(data){
+            const app = document.getElementById('app');
+            const div = document.createElement('div');
+            const btn = document.createElement('button');
+            const p = document.createElement('p');
+            div.appendChild(p);
+            btn.setAttribute('data-id', data.id);
+            btn.onclick = handleClick;
+            div.appendChild(btn);
+            app.appendChild(div);
+        }
   </script>
 </body>
 
