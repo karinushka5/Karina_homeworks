@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYN_FORM</title>
+    <style>
+        hr { margin: 20px 0;}
+        .label{
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .radio + label {
+            display: inline;
+            padding-right: 10px;
+        }
+        #submit {
+            margin-top: 10px;
+        }
+        textarea{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <form name="form1" action="http://fe.it-academy.by/TestForm.php" method="post"></form>
+    <form name="form2" action="http://fe.it-academy.by/TestForm.php" method="post"></form>
+    <script>
+      var formDef1=
+                    [
+                    {label:'Название сайта:',kind:'longtext',name:'sitename'},
+                    {label:'URL сайта:',kind:'longtext',name:'siteurl'},
+                    {label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+                    {label:'E-mail для связи:',kind:'shorttext',name:'email'},
+                    {label:'Рубрика каталога:',kind:'combo',name:'division',
+                        variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+                    {label:'Размещение:',kind:'radio',name:'payment',
+                        variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+                    {label:'Разрешить отзывы:',kind:'check',name:'votes'},
+                    {label:'Описание сайта:',kind:'memo',name:'description'},
+                    {caption:'Опубликовать',kind:'submit'},
+                    ];
+
+    var formDef2=
+                [
+                {label:'Фамилия:',kind:'longtext',name:'lastname'},
+                {label:'Имя:',kind:'longtext',name:'firstname'},
+                {label:'Отчество:',kind:'longtext',name:'secondname'},
+                {label:'Возраст:',kind:'number',name:'age'},
+                {caption:'Зарегистрироваться',kind:'submit'},
+                ];
+    const form1= document.forms.form1;
+    const form2= document.forms.form2;
+    const getForm = (form, formDef) => {
+        form.appendChild(document.createElement('hr'));
+        formDef.forEach(element => {
+            if(element.label) {
+                let formLabel = document.createElement('label');
+                formLabel.textContent = element.label;
+                formLabel.name = element.name;
+                formLabel.style.width = '160px';
+                formLabel.classList.add('label');
+                form.appendChild(formLabel)
+            }
+            if (element.kind =='longtext') {
+                let newTag=document.createElement('input');
+                newTag.name = element.name;
+                newTag.type = 'text';
+                newTag.style.width ='400px';
+                newTag.classList.add('longtext');
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind =='number') {
+                let newTag=document.createElement('input');
+                newTag.name = element.name;
+                newTag.type = 'number';
+                newTag.id = 'number_input';
+                newTag.style.width ='50px';
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind =='shorttext') {
+                let newTag=document.createElement('input');
+                newTag.name = element.name;
+                newTag.type = 'email';
+                newTag.style.width ='200px';
+                newTag.classList.add('shorttext');
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind =='combo') {
+                let newTag=document.createElement('select');
+                newTag.name = element.name;
+                newTag.id = 'select';
+                element.variants.forEach(el => {
+                    // Перебор массива variants
+                    let variant = document.createElement('option');
+                    variant.value = el.value;
+                    variant.textContent = el.text;
+                    newTag.appendChild(variant);
+                })
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind =='radio') {
+                element.variants.forEach(el => {
+                    // Перебор массива variants
+                    let newTag=document.createElement('input');
+                    newTag.name = element.name;
+                    newTag.type = 'radio';
+                    newTag.value = el.value;
+                    newTag.classList.add('radio');
+                    form.appendChild(newTag);
+                    let text = document.createElement('label');
+                    text.textContent = el.text;
+                    form.appendChild(text);
+                })
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind == 'check') {
+                let newTag=document.createElement('input');
+                newTag.name = element.name;
+                newTag.type = 'checkbox';
+                newTag.id = 'checkbox';
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind == 'memo') {
+                let newTag=document.createElement('textarea');
+                newTag.name = element.name;
+                newTag.id = 'memo';
+                form.appendChild(newTag);
+                form.appendChild(document.createElement('br'));
+            }
+            if (element.kind == 'submit') {
+                let newTag=document.createElement('input');
+                newTag.value = element.caption;
+                newTag.type = 'submit';
+                newTag.id = 'submit';
+                form.appendChild(newTag);
+            }
+        })
+        form.appendChild(document.createElement('hr'));
+        
+}
+getForm(form1, formDef1)
+getForm(form2, formDef2)
+    </script>
+
+</body>
+</html>
