@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bootstrap demo</title>
+  <script src="https://kit.fontawesome.com/5ae849c3ce.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <style>
@@ -16,11 +17,10 @@
       display: block;
     }
 
-    #app {
+    #main, #basket {
       padding: 20px;
       display: flex;
       align-items: center;
-      flex-direction: column;
     }
 
     #app div {
@@ -52,16 +52,20 @@
     }
     #getForm {display: none;}
     #getForm.active {display: block;}
-
+    button {
+      border: 0;
+      background-color: transparent;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
 <body>
   <div class="btn-main">
-    <input type="button" name="getForm" value="Заполнить форму" id="getForm" onclick="activeForm()">
-    <input type='button' value='Render' onclick='getDiv(); hideForm()'>
-    <input type='button' value='&#129045;' onclick='sortIncrease()'>
-    <input type='button' value='&#129047;' onclick='sortDecrease()'>
+    <input type="button" name="getForm" value="Заполнить форму" id="getForm">
+    <input type='button' value='Render' onclick='getDiv()'>
+    <input type='button' value='&#129045;' id="increase">
+    <input type='button' value='&#129047;' id="decrease">
   </div>
   
   <form action="" method="POST" name="form">
@@ -70,40 +74,45 @@
     Укажите стоимость авто: <input type="text" name="price">
     Вставьте адрес изображения авто: <input type="text" name="imgURL">
     Вставьте описание авто: <textarea name="discrip" id=""></textarea>
-    <input type="button" onclick="addAuto();checkForm(form)" value="Добавить авто" id="btn">
+    <input type="button" onclick="checkForm(form);addAuto()" value="Добавить авто" id="btn">
     <input type="reset" name="Сбросить">
   </form>
-  <!-- <div id='app'></div> -->
+  <div id='main'></div>
+  <div id='basket'>
+    <hr>
+    Корзина
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <script>
-    // const cars = [
-    //     {id:'1',
-    //     brandTitle: 'BMW',
-    //     modelTitle: 'M5',
-    //     imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJJNlJZqJHrakxLlATPfxY2j1JsXDg6T9TaA&usqp=CAU",
-    //     discrip: 'the best car',
-    //     price: '≈ 195000 $ '
-    // },
-    // {   id:'2',
-    //     brandTitle: 'Audi',
-    //     modelTitle: 'Q5',
-    //     imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GetuFWE8pbI5oxX25Y-getRULbnT9Kh4uQ&usqp=CAU",
-    //     discrip: 'the best car',
-    //     price: '≈ 66000 $'
-    // },
-    // {   id:'3',
-    //     brandTitle: 'Mazda',
-    //     modelTitle: 'CX5',
-    //     imgURL: "https://editorials.autotrader.ca/media/193626/2021-mazda-cx-5-100th-anniversary-edition-02-di.jpg?anchor=center&mode=crop&width=1920&height=1080&rnd=132600028584630000",
-    //     discrip: 'the best car',
-    //     price: '≈ 48500 $'
-    // }]
-    const cars = [];
+    const cars = [
+        {id:'1',
+        brandTitle: 'BMW',
+        modelTitle: 'M5',
+        imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJJNlJZqJHrakxLlATPfxY2j1JsXDg6T9TaA&usqp=CAU",
+        discrip: 'the best car',
+        price: '≈ 195000 $ '
+    },
+    {   id:'2',
+        brandTitle: 'Audi',
+        modelTitle: 'Q5',
+        imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GetuFWE8pbI5oxX25Y-getRULbnT9Kh4uQ&usqp=CAU",
+        discrip: 'the best car',
+        price: '≈ 66000 $'
+    },
+    {   id:'3',
+        brandTitle: 'Mazda',
+        modelTitle: 'CX5',
+        imgURL: "https://editorials.autotrader.ca/media/193626/2021-mazda-cx-5-100th-anniversary-edition-02-di.jpg?anchor=center&mode=crop&width=1920&height=1080&rnd=132600028584630000",
+        discrip: 'the best car',
+        price: '≈ 48500 $'
+    }]
+    // const cars = [];
     let id = 0;
     const addAuto = () => {
-      id+=1;
+      if (checkForm(form)) {
+        id+=1;
       let brandTitle = document.form.brandTitle.value;
       document.form.brandTitle.required;
       let price = document.form.price.value;
@@ -112,19 +121,26 @@
       let discrip = document.form.discrip.value;
       cars.push({id,brandTitle, modelTitle, price, imgURL, discrip })
       console.log(cars)
+      }
     }
     let checkForm = (form) =>{
       for (var i = 0; i < form.elements.length-2; i++)
       if (form.elements[i].value == ''){
         alert ('Все поля должны быть заполнены!');
         return false;
-    }}    
-
+    }
+    else {return true;}}    
+    let collectionID = new Array;
     // const elem = document.getElementById('app');
     let getDiv = () => {
       let str = ''
+      let length = cars.length;
+      
       for (let car of cars) {
-        str += `<div class="card" style="width: 18rem;">
+        let count =1;
+        car.total = count;
+        if (!collectionID.includes(car.id)) {
+          str = `<div class="card" style="width: 18rem;">
                 <img src="${car.imgURL}" class="card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">${car.brandTitle} ${car.modelTitle}</h5>
@@ -133,14 +149,42 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
             </div>`
+            collectionID.push(car.id);
+          if (car) {
+            let main = document.getElementById('main');
+            let divMain = document.createElement('div');
+            divMain.setAttribute('id', 'app');
+            divMain.innerHTML = str;
+            main.appendChild(divMain);
+          }
+        }
+       
       }
+      function handleClick(e){
+              console.log(e.target.parentNode.dataset.id)
+          }
+          function createEl(data){
+            
+              const p = document.getElementsByClassName('card-text')[data.id-1];
+              const btn = document.createElement('button');
+              const basket = document.createElement('i');
+              basket.setAttribute('class', "fa-solid fa-cart-shopping");
+              basket.style.color = "#0d6efd";
+              btn.setAttribute('data-id', data.id);
+              btn.onclick = handleClick;
+              btn.onclick = addBasket;
+              btn.appendChild(basket);
+              p.appendChild(btn);
+        }
+        for(let i = 0; i<cars.length; i++){
+            createEl(cars[i]);
+        }
+      
       // elem.innerHTML = str;
-      let divMain = document.createElement('div');
-      divMain.setAttribute('id', 'app');
-      divMain.innerHTML = str;
-      document.body.appendChild(divMain);
-
     }
+    // let hr = document.createElement('hr');
+    //     document.body.appendChild(hr);
+    
     let sortIncrease = () => {
       cars.sort((a, b) => { return parseInt(a.price) - parseInt(b.price); })
       getDiv(cars);
@@ -148,7 +192,9 @@
     let sortDecrease = () => {
       cars.sort((a, b) => { return parseInt(b.price) - parseInt(a.price); })
       getDiv(cars);
+
     }
+    
     let hideForm = () => {
       form.classList.add('hidden');
       document.querySelector('#getForm').className = 'active';
@@ -157,25 +203,55 @@
       form.classList.remove('hidden');
       document.querySelector('#getForm').classList.remove('active');
     }
+    document.getElementById('getForm').addEventListener("click", hideForm);
+    document.getElementById('getForm').addEventListener("click", activeForm);
+    document.getElementById('increase').addEventListener("click", sortIncrease);
+    document.getElementById('decrease').addEventListener("click", sortDecrease);
     // корзина
-    for(let i = 0; i<cars.length; i++){
-            createEl(cars[i]);
-        }
+    let collectionBasket=[];
+    let basketArr = [];
+    let total=1;
+    const createElBask = (basketArr) => {
+      let str = '';
+      
 
-        function handleClick(e){
-            console.log(e.target.dataset.id)
+      for (let car of basketArr) {
+        if (!collectionBasket.includes(car.id)) {
+          str = `<div class="card" style="width: 18rem;">
+                <div class="allSelected">Вы выбрали: ${car.total}</div>
+                <img src="${car.imgURL}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">${car.brandTitle} ${car.modelTitle}</h5>
+                <h6 class="card-price"> ≈ ${car.price} $</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            </div>`
+            collectionBasket.push(car.id);
+          if (car) {
+          let basket = document.getElementById('basket');
+          let div = document.createElement('div');
+          div.setAttribute('id', 'app');
+          div.innerHTML = str;
+          basket.appendChild(div);
         }
-        function createEl(data){
-            const app = document.getElementById('app');
-            const div = document.createElement('div');
-            const btn = document.createElement('button');
-            const p = document.createElement('p');
-            div.appendChild(p);
-            btn.setAttribute('data-id', data.id);
-            btn.onclick = handleClick;
-            div.appendChild(btn);
-            app.appendChild(div);
-        }
+  } else {
+    // что-то пошло не так.
+    let result = collectionBasket.reduce(function(acc, el) {
+  acc[el] = (acc[el] || 0) + 1;
+  return acc;
+}, {});
+      let divBasket = document.getElementsByClassName('allSelected')[car.id-1];
+      divBasket.textContent = `Вы выбрали: ${result}`;
+  }
+}
+    }
+    let addBasket = (e) => {
+        basketArr.push(cars.slice(e.target.parentNode.dataset.id-1)[0]);
+            createElBask(basketArr);
+    }
+    
+
   </script>
 </body>
 

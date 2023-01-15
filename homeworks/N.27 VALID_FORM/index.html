@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.27</title>
+    <style>
+        label{
+            display: inline-block;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        input[type='radio'] + label {
+            display: inline;
+            padding-right: 10px;
+        }
+        input[type='submit']  {
+            margin-top: 10px;
+        }
+        textarea{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <p>Для внесения вашего сайта в каталог, заполните форму:</p>
+        <form action="https://fe.it-academy.by/TestForm.php" method="post" name="form">
+            <div>
+                <label for="dev">Разработчики:</label>
+                <input type="text" name="devs" class="control">
+            </div>
+            <div>
+                <label>Название сайта:</label>
+                <input type="text" name="site_name" class="control">
+            </div>
+            <div>
+                <label>URL сайта:</label>
+                <input type="text" name="site" class="control">
+            </div>
+            <div>
+                <label>Дата запуска сайта:</label>
+                <input type="date" name="date"  class="control">
+            </div>
+            <div>
+                <label>Посетителей в сутки:</label>
+                <input type="number" name="clients" class="control">
+            </div>
+            <div>
+                <label>E-mail для связи:</label>
+                <input type="email" name="email" class="control">
+            </div>
+            <div>
+                <label>Рубрика каталога:</label>
+                <select name="name_select"  class="control">
+                    <option value="1">здоровье</option>
+                    <option value="2">бытовая техника</option>
+                    <option value="3">домашний уют</option>
+                </select>
+            </div>
+            <div>
+                <label>Размещение:</label>
+                    <input type="radio" name="place" value="1" >бесплатное
+                    <input type="radio" name="place" value="2">платное
+                    <input type="radio" name="place" value="3">VIP
+            </div>
+            <div>
+                <label>Разрешить отзывы:</label>
+                <input type="checkbox" name="comments" >
+            </div>
+            <div>
+                <label>Описание сайта:</label><br>
+                <textarea name="text"  class="control"></textarea>
+            </div>
+            <input type="submit" value="Опубликовать" class="btn btn_send">    
+        </form>
+    <script src="valid.js"></script>
+
+    
+</body>
+</html>
