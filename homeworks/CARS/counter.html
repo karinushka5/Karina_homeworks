@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button data-id="1">0</button>
+<button data-id="2">0</button>
+<button data-id="3">0</button>
+<p ></p>
+<p></p>
+<p></p>
+<script>
+    const buttons = document.querySelectorAll('button'); // получаем NodeList с кнопками
+/**
+* Функция счетчика
+*/
+function count() {
+  let counter = 0;
+  return function() {
+    return counter+=1;
+  };
+}
+
+for (let button of buttons) {
+  const counter = count(); // создаем отдельный инстанс функции счетчика для каждой кнопки
+  button.addEventListener('click', function() {
+    this.value = counter(); // прибавляем +1 к счетчику внутри counter
+    console.log(this);
+    return basketCount(this.value, this.dataset.id) ;
+  });
+}
+function basketCount(clicks, id) {
+    let divBasket = document.getElementsByTagName('p')[id-1];
+    divBasket.textContent = `Вы выбрали: ${clicks}`;
+}
+</script>
+</body>
+</html>
