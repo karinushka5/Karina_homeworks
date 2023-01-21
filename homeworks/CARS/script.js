@@ -125,7 +125,7 @@ let total=1;
 const createElBask = (basketArr) => {
   let str = '';
   
-// Частично работает ?
+// Частично работает ???
   for (let car of basketArr) {
     if (!collectionBasket.includes(car.id)) {
       str = `<div class="card" style="width: 18rem;">
