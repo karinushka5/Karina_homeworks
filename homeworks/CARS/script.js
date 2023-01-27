@@ -133,7 +133,6 @@ let total=1;
 const createElBask = (basketArr) => {
   let str = '';
   
-// Частично работает ???
   for (let car of basketArr) {
     if (!collectionBasket.includes(car.id)) {
       str = `<div class="card" style="width: 18rem;">
@@ -147,33 +146,9 @@ const createElBask = (basketArr) => {
         </div>
         </div>`
         collectionBasket.push(car.id);
-      let basket = document.getElementById('basket');
-      let div = document.createElement('div');
-      div.setAttribute('id', 'app');
-      div.innerHTML = str;
-      basket.appendChild(div);
-      document.getElementsByClassName("btn_basket")[car.id-1].disabled=true;
-      document.getElementsByClassName("btn_basket")[car.id-1].style.display='none';
-      const buttons = document.getElementsByClassName('plus_btn'); // получаем NodeList с кнопками
-      function count() {
-        let counter = 1;
-        return function() {
-          return counter+=1;
-        };
-      }
-      for (let button of buttons) {
-        const counter = count(); // создаем отдельный инстанс функции счетчика для каждой кнопки
-        button.addEventListener('click', function() {
-          this.value = counter(); // прибавляем +1 к счетчику внутри counter
-          return basketCount(this.value, this.dataset.id);
-        });
-      }
-      function basketCount(clicks, id) {
-        let spanBasket = document.querySelectorAll('span')[(basketArr.findIndex(el => el.id === id))];
-        console.log(basketArr.findIndex(el => el.id === id))
-        spanBasket.textContent = clicks;
-    
-    }
+       
+        localStorage.setItem('cars', JSON.stringify(basketArr));
+      
 } 
   }
 }
