@@ -175,19 +175,9 @@ const createElBask = (basketArr) => {
     
     }
 } 
-  }
-}
-// Если прописать добавление в корзину в else сработают кнопки только при добавлении всех товаров
-      
-      
+// Если прописать добавление в корзину в else сработают кнопки только при добоавлении всех товаров
+}}
 
-// document.addEventListener('click', function(event) {
-
-// if (event.target.dataset.counter != undefined) { // если есть атрибут...
-// event.target.value++;
-// }
-
-// });
 let addBasket = (e) => {
     basketArr.push(cars.slice(e.target.parentNode.dataset.id-1)[0]);
         createElBask(basketArr);
