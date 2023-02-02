@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOCK_CANVAS</title>
+    <style>
+        body {
+            color: #fff;
+            background: hsl(227, 10%, 10%);
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+        }
+
+        div.hidden {
+            display: none;
+        }
+
+        .flex-container {
+            display: none;
+        }
+
+        .flex-container.active {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .btn-hover {
+            width: 200px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            margin: 20px;
+            height: 55px;
+            text-align: center;
+            border: none;
+            background-size: 300% 100%;
+            border-radius: 50px;
+            transition: all .4s ease-in-out;
+        }
+
+        .btn-hover:hover {
+            background-position: 100% 0;
+            transition: all .4s ease-in-out;
+        }
+
+        .btn-hover:focus {
+            outline: none;
+        }
+
+        .btn-hover.color {
+            background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+            box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+        }
+
+        .text {
+            width: 400px;
+            height: 55px;
+            background: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            border: none;
+            background-size: 300% 100%;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="inputs">
+        <input type="text" placeholder="Укажите диаметр часов от 200 до 800" id="diameter" class="text">
+        <input type="button" id="setDiameter" value="Построить часы" class="btn-hover color">
+    </div>
+    <div class="flex-container">
+        <canvas id="clock" width="1000" height="800"></canvas>
+    </div>
+    <script src="canvas.js"></script>
+</body>
+
+</html>
